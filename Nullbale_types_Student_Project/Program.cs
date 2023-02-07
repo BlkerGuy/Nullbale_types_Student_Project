@@ -11,6 +11,8 @@ namespace Nullbale_types_Student_Project
     {
         static void Main(string[] args)
         {
+            //       TAM HAZIR
+            string[] students = new string[0];
             int chosen;
             do
             {
@@ -23,55 +25,71 @@ namespace Nullbale_types_Student_Project
 
                 Console.WriteLine("Secim Edin:");
                 chosen = Convert.ToInt32(Console.ReadLine());
-                chooseOfPanel(chosen);
+                //chooseOfPanel(chosen);
+
+                switch (chosen)
+                {
+                    case 1:
+                        for (int i = 0; i < students.Length; i++)
+                        {
+                            if (students[i] != null)
+                            {
+                                //Console.WriteLine("\nTelebeler:");
+                                Console.WriteLine(students[i]);
+                            }
+                        }
+                        break;
+                    case 2:
+                        //Console.WriteLine("\nTelebe elave edilir \n");
+                        Console.WriteLine("\nZehmet olmasa Telebenin Fullname'sini qeyd edin:");
+                        string createStudent = Console.ReadLine();
+                        while (createStudent.Length! < 3)
+                        {
+                            Console.WriteLine("Adinizi duzgun daxil edin!");
+                            createStudent = Console.ReadLine();
+                        }
+                        makeFullname(ref createStudent);
+                        Array.Resize(ref students, students.Length + 1);
+                        students[students.Length - 1] = createStudent;
+                        Console.WriteLine("Telebe yaradildi ve sisteme elave olundu.");
+                        break;
+                    case 3:
+                        Console.WriteLine("Axtardiginiz Telebenin Fullname:");
+                        string searchStudents = Console.ReadLine();
+
+                        for (int i = 0; i < students.Length; i++)
+                        {
+                            if (students[i].Contains(searchStudents,StringComparison.OrdinalIgnoreCase))
+                            {
+                                Console.WriteLine(students[i]);
+                            }
+                        }
+                        break;
+                    case 4:
+                        for (int i = 0; i < students.Length; i++)
+                        {
+                            Console.WriteLine(students[i].Substring(0, students[i].IndexOf(' ')));
+                        }
+                        break;
+                    case 5:
+                        Console.WriteLine("\nTelebenin Soyad sonlugunu daxil edin:");
+                        string surnameEnding = Console.ReadLine();
+                        for (int i = 0; i < students.Length; i++)
+                        {
+                            if (students[i].EndsWith(surnameEnding))
+                                Console.WriteLine(students[i]);
+                        }
+                        break;
+                    case 0:
+                        Console.WriteLine("\nMenudan cixir \n");
+                        break;
+                    default:
+                        Console.WriteLine("\nDuzgun eded daxil edin! \n");
+                        break;
+                }
             } while (chosen != 0);
-            showStudent();
         }
-
-
-        static void chooseOfPanel(int num)
-        {
-            switch (num)
-            {
-                case 1:
-                    //Console.WriteLine("\nTelebelere baxilir \n");
-                    showStudent();
-                    break;
-                case 2:
-                    //Console.WriteLine("\nTelebe elave edilir \n");
-                    CreateStudents();
-                    break;
-                case 3:
-                    Console.WriteLine("\nTelebeler uzre axtaris edir \n");
-                    break;
-                case 4:
-                    Console.WriteLine("\nTelebeler adlarina baxilir \n");
-                    break;
-                case 5:
-                    Console.WriteLine("\nSiyahida adin olub olmadigina bax \n");
-                    break;
-                case 0:
-                    Console.WriteLine("\nMenudan cixir \n");
-                    break;
-                default:
-                    Console.WriteLine("\nDuzgun eded daxil edin! \n");
-                    break;
-            }
-        }
-        #region Choosen 2
-        static void CreateStudents()
-        {
-            Console.WriteLine("\nZehmet olmasa Telebenin Fullname'sini qeyd edin:");
-            string createStudent = Console.ReadLine();
-            while (createStudent.Length! < 3)
-            {
-                Console.WriteLine("Adinizi duzgun daxil edin!");
-                createStudent = Console.ReadLine();
-            }
-
-            makeFullname(createStudent);
-        }
-        static void makeFullname(string name)
+        static void makeFullname(ref string name)
         {
             var arr = name.Split(' ');
             string newStr = "";
@@ -84,57 +102,10 @@ namespace Nullbale_types_Student_Project
                 }
             }
             newStr.TrimEnd();
-            AddStudent(newStr);
-        }
 
-        static void AddStudent(string studentName)
-        {
-            string[] studentNames = new string[studentName.Length];
-            for (int i = 0; i < studentName.Length; i++)
-            {
-               if (studentName[i]!=' ')
-                studentNames[i] = studentName;
-                Console.WriteLine($"{studentNames[i]}. adli telebe yaradildi.");
-                break;
-            }
-            studentArr(ref studentNames);
-        }
-        static string[] studentArr(ref string[] studentCallFromList)
-        {
-            string[] studentAddToList = new string[studentCallFromList.Length+1];
+            name = newStr.TrimEnd();
 
-            string empty2 = " ";
-            int count = 0;
-            int empty = 0;
-            for (int i = 0; i < studentCallFromList.Length; i++)
-            {
-                if (studentCallFromList[i] != null)
-                {
-                    studentAddToList[count] = studentCallFromList[i];
-                    count++;
-                }
-                empty++;
-            }
-           return studentCallFromList = studentAddToList;
         }
-        #endregion
-        #region Choosen 1
-        static void showStudent()
-        {
-            //string[] name = new string[] {};
-            //var names = studentArr(ref name);
-            //int count = 0;
-            //for (int i = 0; i < names.Length; i++)
-            //{
-            //    if (names[i]!="")
-            //    {
-            //        Console.WriteLine($"{i}ci Telebe");
-            //        Console.WriteLine(names[i]);
-            //        count++; 
-            //    }
-            //}
-        }
-        #endregion
 
     }
 }
